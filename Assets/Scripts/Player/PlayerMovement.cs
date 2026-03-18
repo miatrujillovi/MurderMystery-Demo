@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerHeight;
     [SerializeField] private LayerMask Ground;
     [Space]
+    [Header("Player Orientation")]
     [SerializeField] private Transform orientation;
 
     private float horizontalInput;
@@ -31,12 +32,15 @@ public class PlayerMovement : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
 
         MyInput();
+        HandleDrag();
+    }
 
-        //Handle drag
+    private void HandleDrag()
+    {
         if (grounded)
         {
             rb.linearDamping = groundDrag;
-        } 
+        }
         else
         {
             rb.linearDamping = 0;
@@ -50,8 +54,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        Vector2 input = InputManager.Instance.MoveInput;
+
+        horizontalInput = input.x;
+        verticalInput = input.y;
     }
 
     private void MovePlayer()

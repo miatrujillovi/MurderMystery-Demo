@@ -13,7 +13,7 @@ public class TriggerManager : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void ApplyEffect(TriggerEffect.TriggerEffects _effect)

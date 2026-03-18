@@ -8,6 +8,9 @@ public class PlayerCam : MonoBehaviour
     [SerializeField] private float xRotation;
     [SerializeField] private float yRotation;
 
+    private float mouseX;
+    private float mouseY;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -16,16 +19,29 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
-        //Mouse Input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivityX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivityY;
+        LookInput();
+        LookRotation(); 
+        RotateCam();
+    }
 
+    private void LookInput()
+    {
+        Vector2 input = InputManager.Instance.LookingInput;
+
+        mouseX = input.x * Time.deltaTime * sensitivityX;
+        mouseY = input.y * Time.deltaTime * sensitivityY;
+    }
+
+    private void LookRotation()
+    {
         yRotation += mouseX;
-
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        //Rotate cam and orientation
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+    }
+
+    private void RotateCam()
+    {
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
