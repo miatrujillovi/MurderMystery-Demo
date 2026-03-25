@@ -19,8 +19,8 @@ public class InputManager : MonoBehaviour
 
     //INTERACTION
     private InputAction interact;
-    private bool interactInput;
-    public bool InteractInput => interactInput; //Public getter
+    private bool interactPressedThisFrame;
+    public bool InteractPressedThisFrame => interactPressedThisFrame; //Public getter
 
     private void Awake()
     {
@@ -41,6 +41,8 @@ public class InputManager : MonoBehaviour
 
     private void OnEnable()
     {
+        playerControls.Enable();
+
         //MOVEMENT
         movement.Enable();
         movement.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
@@ -53,12 +55,19 @@ public class InputManager : MonoBehaviour
 
         //INTERACT
         interact.Enable();
-
+        interact.performed += ctx => interactPressedThisFrame = true;
     }
 
     private void OnDisable()
     {
+        playerControls.Disable();
         movement.Disable();
         looking.Disable();
+        interact.Disable();
+    }
+
+    private void LateUpdate()
+    {
+        interactPressedThisFrame = false;
     }
 }

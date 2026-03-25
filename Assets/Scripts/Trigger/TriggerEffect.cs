@@ -19,15 +19,14 @@ public class TriggerEffect : MonoBehaviour
     [SerializeField] private TriggerEffects effect;
     [SerializeField] private GameObject interactUI;
 
+    private bool playerInside = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            playerInside = true;
             interactUI.SetActive(true);
-            /*if ()
-            {
-                TriggerManager.instance.ApplyEffect(effect);
-            }*/
         }
     }
 
@@ -35,7 +34,16 @@ public class TriggerEffect : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            playerInside = false;
             interactUI.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (playerInside && InputManager.Instance.InteractPressedThisFrame)
+        {
+            TriggerManager.instance.ApplyEffect(effect);
         }
     }
 }

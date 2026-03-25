@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class TriggerManager : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class TriggerManager : MonoBehaviour
             return;
         }
         instance = this;
-        //DontDestroyOnLoad(gameObject);
     }
 
     public void ApplyEffect(TriggerEffect.TriggerEffects _effect)
@@ -69,7 +69,14 @@ public class TriggerManager : MonoBehaviour
 
     private void HandleMainDoor()
     {
-        Debug.Log("The door is locked. I need to get inside");
+        if (PuzzleVariable.doorKeys)
+        {
+            PuzzleManager.instance.OpenDoor();
+        }
+        else
+        {
+            DialogueManager.Instance.ShowDialogue("The door is locked. I need to get inside");
+        }
     }
 
     private void HandleNoteForDoor()
