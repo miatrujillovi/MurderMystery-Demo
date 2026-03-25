@@ -5,6 +5,9 @@ public class TriggerManager : MonoBehaviour
 {
     public static TriggerManager instance;
 
+    private Transform playerOrientation;
+    private Transform lookAtTarget;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -15,8 +18,11 @@ public class TriggerManager : MonoBehaviour
         instance = this;
     }
 
-    public void ApplyEffect(TriggerEffect.TriggerEffects _effect)
+    public void ApplyEffect(TriggerEffect.TriggerEffects _effect, Transform _lookAtTarget, Transform _orientation)
     {
+        playerOrientation = _orientation;
+        lookAtTarget = _lookAtTarget;
+
         switch (_effect)
         {
             case TriggerEffect.TriggerEffects.MainDoor:
@@ -75,7 +81,7 @@ public class TriggerManager : MonoBehaviour
         }
         else
         {
-            DialogueManager.Instance.ShowDialogue("The door is locked. I need to get inside");
+            DialogueManager.Instance.ShowDialogue("The door is locked. I need to get inside", lookAtTarget, playerOrientation);
         }
     }
 

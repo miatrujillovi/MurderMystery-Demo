@@ -6,10 +6,13 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
 
     [SerializeField] private GameObject dialoguePanel;
-    [SerializeField] private GameObject interactPanel;
-    [SerializeField] private TextMeshProUGUI dialogueTXT;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerCam PlayerCam;
+    [SerializeField] private float distanceOfUI = 2f;
+    [SerializeField] private int yDistanceFromRotation = 3;
+
+    private TextMeshProUGUI dialogueTXT;
+    private GameObject dialoguePrefab;
 
     private bool dialogueActive = false;
 
@@ -23,23 +26,28 @@ public class DialogueManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Update()
+    private void Start()
     {
-        if (dialogueActive && Input.anyKeyDown)
-        {
-            CloseDialogue();
-        }
+        Transform textPanel = dialoguePanel.transform.Find("TextPanel");
+        dialogueTXT = textPanel.Find("DialogueTXT").GetComponent<TextMeshProUGUI>();
     }
 
-    public void ShowDialogue(string _dialogue)
+    private void Update()
+    {
+        /*if (dialogueActive && Input.anyKeyDown)----------------------------
+        {
+            CloseDialogue();
+        }*/
+    }
+
+    public void ShowDialogue(string _dialogue, Transform _lookAtTarget, Transform _orientation)
     {
         //Stop Player
         playerMovement.enabled = false;
-        PlayerCam.enabled = false;
+        //PlayerCam.enabled = false;
 
         //Activate Dialogue
-        dialoguePanel.SetActive(true);
-        interactPanel.SetActive(false);
+        ShowDialogueWindow(_lookAtTarget, _orientation);
         dialogueTXT.text = _dialogue;
 
         //Activate Mouse
@@ -52,8 +60,7 @@ public class DialogueManager : MonoBehaviour
     private void CloseDialogue()
     {
         //Deactivate Dialogue
-        dialoguePanel.SetActive(false);
-        dialogueTXT.text = " ";
+        CloseDialogueWindow();
 
         //Restore Player
         playerMovement.enabled = true;
@@ -64,5 +71,20 @@ public class DialogueManager : MonoBehaviour
         Cursor.visible = false;
 
         dialogueActive = false;
+    }
+
+    private void ShowDialogueWindow(Transform _lookAtTarget, Transform _orientation)
+    {
+        Vector3 orientationPosition = new Vector3(_orientation.position.x, yDistanceFromRotation, _orientation.position.z);
+
+        Vector3 spawnPosition = orientationPosition + _orientation.forward * distanceOfUI;
+        dialoguePrefab = Instantiate(dialoguePanel, spawnPosition, Quaternion.identity);
+
+        dialoguePrefab.GetComponent<FollowingUI>().SetTarget(_lookAtTarget);
+    }
+
+    private void CloseDialogueWindow()
+    {
+        Destroy(dialoguePrefab);
     }
 }
