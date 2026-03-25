@@ -17,12 +17,25 @@ public class TriggerEffect : MonoBehaviour
     }
 
     [SerializeField] private TriggerEffects effect;
+    [SerializeField] private GameObject interactUI;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            TriggerManager.instance.ApplyEffect(effect);
+            interactUI.SetActive(true);
+            /*if ()
+            {
+                TriggerManager.instance.ApplyEffect(effect);
+            }*/
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactUI.SetActive(false);
         }
     }
 }

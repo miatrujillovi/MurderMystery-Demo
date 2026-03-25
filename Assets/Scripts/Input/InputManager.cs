@@ -17,6 +17,11 @@ public class InputManager : MonoBehaviour
     private Vector2 lookingInput;
     public Vector2 LookingInput => lookingInput; // Public getter
 
+    //INTERACTION
+    private InputAction interact;
+    private bool interactInput;
+    public bool InteractInput => interactInput; //Public getter
+
     private void Awake()
     {
         Instance = this;
@@ -25,10 +30,13 @@ public class InputManager : MonoBehaviour
         var gameplayActionMap = playerControls.Player;
 
         //MOVEMENT
-
         movement = gameplayActionMap.Move;
+
         //LOOKING AROUND
         looking = gameplayActionMap.Look;
+
+        //INTERACTION
+        interact = gameplayActionMap.Interact;
     }
 
     private void OnEnable()
@@ -42,6 +50,10 @@ public class InputManager : MonoBehaviour
         looking.Enable();
         looking.performed += ctx => lookingInput = ctx.ReadValue<Vector2>();
         looking.canceled += ctx => lookingInput = Vector2.zero;
+
+        //INTERACT
+        interact.Enable();
+
     }
 
     private void OnDisable()
