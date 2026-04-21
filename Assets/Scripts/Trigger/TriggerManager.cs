@@ -3,7 +3,7 @@ using TMPro;
 
 public class TriggerManager : MonoBehaviour
 {
-    public static TriggerManager instance;
+    /*public static TriggerManager instance;
 
     private Transform playerOrientation;
     private Transform lookAtTarget;
@@ -75,13 +75,13 @@ public class TriggerManager : MonoBehaviour
 
     private void HandleMainDoor()
     {
-        if (PuzzleVariable.doorKeys)
+        if (PuzzleVariable.hasDoorKeys)
         {
             PuzzleManager.instance.OpenDoor();
         }
         else
         {
-            DialogueManager.Instance.ShowDialogue("The door is locked. I need to get inside", lookAtTarget, playerOrientation);
+            //DialogueManager.Instance.ShowDialogue("The door is locked. I need to get inside", lookAtTarget, playerOrientation);
         }
     }
 
@@ -147,5 +147,5 @@ public class TriggerManager : MonoBehaviour
         }
     }
 
-    #endregion LawnmowerPuzzle
+    #endregion LawnmowerPuzzle*/
 }
