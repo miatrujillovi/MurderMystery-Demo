@@ -25,6 +25,14 @@ public class DialogueManager : MonoBehaviour
         isShowingDialogue = false;
     }
 
+    public async UniTask AsyncShowDialogue(List<string> _dialogue)
+    {
+        dialoguePanel.SetActive(true);
+        playerMovement.enabled = false;
+
+        await NextDialogue(_dialogue);
+    }
+
     private async UniTask NextDialogue(List<string> _dialogue)
     {
         for (int i = 0; i < _dialogue.Count; i++)

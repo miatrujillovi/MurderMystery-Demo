@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace AYellowpaper.SerializedCollections
 {
@@ -23,7 +24,6 @@ namespace AYellowpaper.SerializedCollections
         }
 
         private bool hasDoorKeys = false;
-        private bool isFlowerpotInPosition = false;
         private bool isFlowerpotFree = false;
         private bool hasLawnmower = false;
 
@@ -31,6 +31,7 @@ namespace AYellowpaper.SerializedCollections
         public SerializedDictionary<Interactions, List<string>> clueDialogues;
         public SerializedDictionary<Interactions, List<string>> solvedDialogues;
         [SerializeField] private DialogueManager dialogueManager;
+        [SerializeField] private DoAction actionManager;
 
         private void Awake()
         {
@@ -66,9 +67,11 @@ namespace AYellowpaper.SerializedCollections
                     break;
 
                 case Interactions.MissingFlowerpotArea:
-                    if (isFlowerpotInPosition)
+                    if (isFlowerpotFree)
                     {
                         PlayerGotObject(Interactions.MissingFlowerpotArea);
+                        actionManager.PutFlowerPot();
+                        hasDoorKeys = true;
                     }
                     else
                     {
@@ -77,9 +80,9 @@ namespace AYellowpaper.SerializedCollections
                     break;
 
                 case Interactions.MissingFlowerpot:
-                    if (isFlowerpotFree)
+                    if (hasLawnmower)
                     {
-                        PlayerGotObject(Interactions.MissingFlowerpot);
+                        HandleFlowerpot().Forget();
                     }
                     else
                     {
@@ -88,15 +91,9 @@ namespace AYellowpaper.SerializedCollections
                     break;
 
                 case Interactions.Lawnmower:
-                    /*if (hasLawnmower)
-                    {
-                        PlayerGotObject(Interactions.Lawnmower);
-                    }
-                    else
-                    {
-                        ClueInteraction(Interactions.Lawnmower);
-                    }*/
-                    Debug.Log("Do Lawnmower code");
+                    actionManager.DisappearLawnmower();
+                    hasLawnmower = true;
+                    ClueInteraction(Interactions.Lawnmower);
                     break;
 
                 case Interactions.LawnmowerCode:
@@ -139,10 +136,31 @@ namespace AYellowpaper.SerializedCollections
                 if (name.Key == _order)
                 {
                     dialogueManager.ShowDialogue(name.Value);
-                    Debug.Log("Starting Action");
-                    //Function from another script for that action to execute visually
                 }
             }
+        }
+
+        private async UniTask AsyncPlayerGotObject(Interactions _order)
+        {
+            foreach (var name in solvedDialogues)
+            {
+                if (name.Key == _order)
+                {
+                    await dialogueManager.AsyncShowDialogue(name.Value);
+                    return;
+                }
+            }
+        }
+
+        private async UniTaskVoid HandleFlowerpot()
+        {
+            actionManager.GetFlowerpot();
+
+            await AsyncPlayerGotObject(Interactions.MissingFlowerpot);
+
+            actionManager.DisappearFlowerpot();
+
+            isFlowerpotFree = true;
         }
     }
 }
