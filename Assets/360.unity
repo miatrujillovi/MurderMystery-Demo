@@ -1196,7 +1196,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: b408fcf8f49bd6f439c37fae21bd51ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1853,7 +1853,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 261f07115838d6144a8c90195a365ec8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -3516,7 +3516,7 @@ Transform:
   m_GameObject: {fileID: 1088259189}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00026273727, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3591,7 +3591,7 @@ PlayableDirector:
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 5a29dd24fe90d74429cb1bedaf3b6a0f, type: 2}
   m_InitialState: 1
-  m_WrapMode: 2
+  m_WrapMode: 0
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
@@ -3627,6 +3627,8 @@ PlayableDirector:
     value: {fileID: 551461902}
   - key: {fileID: 3555495826661053828, guid: 5a29dd24fe90d74429cb1bedaf3b6a0f, type: 2}
     value: {fileID: 1088259191}
+  - key: {fileID: 8894978212005380170, guid: 5a29dd24fe90d74429cb1bedaf3b6a0f, type: 2}
+    value: {fileID: 2017352532}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &1136256921
@@ -5839,7 +5841,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e269640d31deada48946739fd336edba, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -7008,7 +7010,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d9a6d76a77b451547add5308bebb6644, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -7143,7 +7145,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f6e366af2f755bd45869cc4991546f6e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -7286,14 +7288,23 @@ PrefabInstance:
       value: Rug_Apt_02
       objectReference: {fileID: 0}
     - target: {fileID: 8671328227652953959, guid: c8efa0ebb83f8f9498202481854c76a5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671328227652953959, guid: c8efa0ebb83f8f9498202481854c76a5, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8efa0ebb83f8f9498202481854c76a5, type: 3}
+--- !u!1 &2017352532 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8671328227652953959, guid: c8efa0ebb83f8f9498202481854c76a5, type: 3}
+  m_PrefabInstance: {fileID: 2017352531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2020291519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7518,7 +7529,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 7c3f4dd9fe3f4d5439cc52e42ce5697a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
