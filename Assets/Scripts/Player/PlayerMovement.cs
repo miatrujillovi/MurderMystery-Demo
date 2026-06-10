@@ -4,6 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float sprintMultiplier = 2f;
     [SerializeField] private float groundDrag;
     [Space]
     [Header("Ground Check")]

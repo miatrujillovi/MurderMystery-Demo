@@ -27,6 +27,10 @@ public class InputManager : MonoBehaviour
     private bool clickPressedThisFrame;
     public bool ClickPressedThisFrame => click.WasPressedThisFrame(); //Public Getter
 
+    //SPRINT
+    private InputAction sprint;
+    public bool SprintPressedThisFrame => click.WasPressedThisFrame(); //Public Getter
+
     private void Awake()
     {
         Instance = this;
@@ -45,6 +49,8 @@ public class InputManager : MonoBehaviour
 
         //CLICK
         click = gameplayActionMap.Click;
+
+        sprint = gameplayActionMap.Sprint;
     }
 
     private void OnEnable()
@@ -67,6 +73,8 @@ public class InputManager : MonoBehaviour
 
         //CLICK
         click.Enable();
+
+        sprint.Enable();
     }
 
     private void OnDisable()
@@ -76,6 +84,7 @@ public class InputManager : MonoBehaviour
         looking.Disable();
         interact.Disable();
         click.Disable();
+        sprint.Disable();
     }
 
     private void LateUpdate()
