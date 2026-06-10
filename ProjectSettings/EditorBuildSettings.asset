@@ -9,6 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Manor.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e049a9d4df7e6aa4da3521fa92e21390, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: f9d3e2fbe62926743838926f64f4016a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 4495d32ea7f2a0e458c235eef4faec77, type: 2}
