@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float sprintMultiplier = 2f;
+    [SerializeField] private float sprintMultiplier = 2.5f;
     [SerializeField] private float groundDrag;
     [Space]
     [Header("Ground Check")]
@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool grounded;
 
+    private bool isRunning = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -31,6 +33,18 @@ public class PlayerMovement : MonoBehaviour
     {
         //Ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, Ground);
+
+        if (InputManager.Instance.SprintPressedThisFrame)
+        {
+            if (isRunning)
+            {
+                isRunning = false;
+            }
+            else
+            {
+                isRunning = true;
+            }
+        }
 
         MyInput();
         HandleDrag();
@@ -66,6 +80,13 @@ public class PlayerMovement : MonoBehaviour
         //Calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        if (isRunning)
+        {
+            rb.AddForce(moveDirection.normalized * (moveSpeed * sprintMultiplier) * 10f, ForceMode.Force);
+        }
+        else
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
     }
 }
